@@ -19,18 +19,18 @@ public class Challenge1 {
 			
 			for (int i = 0; i < 10; i++) {
 				
-				int posicion = mRandom.nextInt(num.length());
-				char caracter = num.charAt(posicion);
+				int position = mRandom.nextInt(num.length());
+				char caracter = num.charAt(position);
 				Result += caracter;
 			}
 				
-				if (type == "Tipo A") {
+				if (type.equals("Tipo A")) {
 					
 					Result1="54"+Result.substring(2);
 					
 					
 				}
-				else if (type == "Tipo B") {
+				else if (type.equals("Tipo B")) {
 					
 					Result1 = "08" + Result.substring(2);
 					
