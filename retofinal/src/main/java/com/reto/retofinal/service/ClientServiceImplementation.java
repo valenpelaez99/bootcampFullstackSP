@@ -39,11 +39,50 @@ public class ClientServiceImplementation implements ClientService{
 	}
 
 	@Override
-	public Client updateClient(Client client) {
+//	public Client updateClient(Client client) {
+	public Client updateClient(int id, Client client) {
 		// TODO Auto-generated method stub
 		
-		client.setModificationDate(LocalDate.now());
-		return clientRepository.save(client);
+		Client existingClient = clientRepository.findById(id).get();
+		
+		if (client.getIdentificationType() != null) {
+			existingClient.setIdentificationType(client.getIdentificationType());
+
+		} 
+		
+		if (client.getIdentificationNumber() != null) {
+			existingClient.setIdentificationNumber(client.getIdentificationNumber());
+
+		} 
+		
+		if (client.getName() != null) {
+			existingClient.setName(client.getName());
+
+		} 
+	
+		if (client.getLastName() != null) {
+			existingClient.setLastName(client.getLastName());
+
+		}
+		
+		if (client.getEmail() != null) {
+			existingClient.setEmail(client.getEmail());
+			
+		}	
+			
+		if (client.getBirthDate() != null) {
+			existingClient.setBirthDate(client.getBirthDate());
+			
+		}	
+		
+		if (client.getBirthDate() != null) {
+			existingClient.setBirthDate(client.getBirthDate());
+			
+		}	
+	
+		existingClient.setModificationDate(LocalDate.now());
+		
+		return clientRepository.save(existingClient);
 	}
 	
 	
