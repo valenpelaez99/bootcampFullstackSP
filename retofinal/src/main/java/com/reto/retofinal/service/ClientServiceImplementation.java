@@ -19,8 +19,17 @@ public class ClientServiceImplementation implements ClientService{
 	@Override
 	public Client createClient(Client client) {
 		// TODO Auto-generated method stub
-		client.setCreationDate(LocalDate.now());
-		return clientRepository.save(client);
+		
+		AgeCalculator ageCalculator = new AgeCalculator();
+		int age = ageCalculator.calculateAge(client.getBirthDate(), LocalDate.now());
+		 if (age>=18) {
+	            client.setCreationDate(LocalDate.now());
+	            client.setUserCreation("admin");
+	            client.setUserModification("admin");
+	            return clientRepository.save(client);
+	        } 
+	        return null;
+		
 	}
 
 	@Override
@@ -30,6 +39,15 @@ public class ClientServiceImplementation implements ClientService{
 	}
 
 	@Override
+	public Client updateClient(Client client) {
+		// TODO Auto-generated method stub
+		
+		client.setModificationDate(LocalDate.now());
+		return clientRepository.save(client);
+	}
+	
+	
+	@Override
 	public boolean deleteClientById(int id) {
 		// TODO Auto-generated method stub
 		
@@ -37,6 +55,8 @@ public class ClientServiceImplementation implements ClientService{
 		return true;
 		
 	}
+
+
 	
 
 }

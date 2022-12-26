@@ -59,6 +59,8 @@ public class Client {
 	@Column(name= "userModification")
 	private String userModification;
 	
+	
+	
 	public Client() {
 	}
 
