@@ -39,11 +39,10 @@ public class ClientServiceImplementation implements ClientService{
 	}
 
 	@Override
-//	public Client updateClient(Client client) {
-	public Client updateClient(int id, Client client) {
+	public Client updateClient(int idClient, Client client) {
 		// TODO Auto-generated method stub
 		
-		Client existingClient = clientRepository.findById(id).get();
+		Client existingClient = clientRepository.findById(idClient).get();
 		
 		if (client.getIdentificationType() != null) {
 			existingClient.setIdentificationType(client.getIdentificationType());
@@ -87,10 +86,10 @@ public class ClientServiceImplementation implements ClientService{
 	
 	
 	@Override
-	public boolean deleteClientById(int id) {
+	public boolean deleteClientById(int idClient) {
 		// TODO Auto-generated method stub
 		
-		clientRepository.deleteById(id);
+		clientRepository.deleteById(idClient);
 		return true;
 		
 	}

@@ -13,27 +13,29 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.reto.retofinal.entity.Client;
-import com.reto.retofinal.service.ClientService;
+
+
+import com.reto.retofinal.entity.Transaction;
+import com.reto.retofinal.service.TransactionService;
 
 @RestController
-@RequestMapping("/clients")
+@RequestMapping("/transactions")
 
-public class ClientController {
-	
+public class TransactionController {
+
 	@Autowired
-	ClientService clientService;
+	TransactionService transactionService;
 	
 	@GetMapping
-    public ResponseEntity<List<Client>> getClients(){
-		return new ResponseEntity<>(clientService.getallClients(), HttpStatus.OK);
+    public ResponseEntity<List<Transaction>> getTransaction(){
+		return new ResponseEntity<>(transactionService.getallTransaction(), HttpStatus.OK);
 	}
 	
 	@PostMapping
-    public ResponseEntity<Client> createClient(@RequestBody Client client){
+    public ResponseEntity<Transaction> createTransaction(@RequestBody Transaction transaction){
 		
-        if (clientService.createClient(client) != null){
-            return new ResponseEntity<>(client, HttpStatus.CREATED);
+        if (transactionService.createTransaction(transaction) != null){
+            return new ResponseEntity<>(transaction, HttpStatus.CREATED);
         }
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         
@@ -42,32 +44,24 @@ public class ClientController {
     }
 	
 	@PutMapping("/{id}")
-    public ResponseEntity<Client> updateClient(@PathVariable("id") int idClient,@RequestBody Client client){
+    public ResponseEntity<Transaction> updateTransaction(@RequestBody Transaction transaction){
 		
-        if (clientService.updateClient(idClient, client) != null){
-            return new ResponseEntity<>(client, HttpStatus.OK);
+        if (transactionService.updateTransaction(transaction) != null){
+            return new ResponseEntity<>(transaction, HttpStatus.OK);
         }
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);		
 	
 	}
         
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteClientById(@PathVariable("id") int idClient){
+    public ResponseEntity deleteTransactionById(@PathVariable("id") int idTransaction){
     	
-        if (clientService.deleteClientById(idClient)){
+        if (transactionService.deleteTransactionById(idTransaction)){
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-            
-        
-    }
 	
-
+}
 	
-	
-
-	
-	
-
 }

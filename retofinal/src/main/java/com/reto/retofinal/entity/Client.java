@@ -2,6 +2,7 @@ package com.reto.retofinal.entity;
 
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -12,6 +13,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -20,19 +22,19 @@ import jakarta.persistence.Table;
 public class Client {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name= "id")
-	private int id;
+	@Column(name= "idclient")
+	private int idClient;
 	
-	@Column(name= "identificationType")
+	@Column(name= "identificationtype")
 	private String identificationType;
 	
-	@Column(name= "identificationNumber")
+	@Column(name= "identificationnumber")
 	private String identificationNumber;
 	
 	@Column(name= "name")
 	private String name;
 	
-	@Column(name= "lastName")
+	@Column(name= "lastname")
 	private String lastName;
 	
 	@Column(name= "email")
@@ -40,36 +42,39 @@ public class Client {
 	
 	@JsonFormat(pattern = "dd/MM/yyyy") 
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	@Column(name= "birthDate")
+	@Column(name= "birthdate")
 	private LocalDate birthDate;
 	
 	@JsonFormat(pattern = "dd/MM/yyyy") 
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	@Column(name= "creationDate")
+	@Column(name= "creationdate")
 	private LocalDate creationDate;
 	
-	@Column(name= "userCreation")
+	@Column(name= "usercreation")
 	private String userCreation;
 	
 	@JsonFormat(pattern = "dd/MM/yyyy") 
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	@Column(name= "modificationDate")
+	@Column(name= "modificationdate")
 	private LocalDate modificationDate;
 	
-	@Column(name= "userModification")
+	@Column(name= "usermodification")
 	private String userModification;
+	
+	@OneToMany(mappedBy = "idClient")
+	private List<Account> account;
 	
 	
 	
 	public Client() {
 	}
 
-	public int getId() {
-		return id;
+	public int getIdClient() {
+		return idClient;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setIdClient(int idClient) {
+		this.idClient = idClient;
 	}
 
 	public String getIdentificationType() {
@@ -151,6 +156,8 @@ public class Client {
 	public void setUserModification(String userModification) {
 		this.userModification = userModification;
 	}
+
+	
 
 	
 	

@@ -13,27 +13,28 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.reto.retofinal.entity.Client;
-import com.reto.retofinal.service.ClientService;
+
+import com.reto.retofinal.entity.Account;
+import com.reto.retofinal.service.AccountService;
 
 @RestController
-@RequestMapping("/clients")
+@RequestMapping("/accounts")
 
-public class ClientController {
-	
+public class AccountController {
+
 	@Autowired
-	ClientService clientService;
+	AccountService accountService;
 	
 	@GetMapping
-    public ResponseEntity<List<Client>> getClients(){
-		return new ResponseEntity<>(clientService.getallClients(), HttpStatus.OK);
+    public ResponseEntity<List<Account>> getAccount(){
+		return new ResponseEntity<>(accountService.getallAccounts(), HttpStatus.OK);
 	}
 	
 	@PostMapping
-    public ResponseEntity<Client> createClient(@RequestBody Client client){
+    public ResponseEntity<Account> createAccount(@RequestBody Account account){
 		
-        if (clientService.createClient(client) != null){
-            return new ResponseEntity<>(client, HttpStatus.CREATED);
+        if (accountService.createAccount(account) != null){
+            return new ResponseEntity<>(account, HttpStatus.CREATED);
         }
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         
@@ -42,32 +43,24 @@ public class ClientController {
     }
 	
 	@PutMapping("/{id}")
-    public ResponseEntity<Client> updateClient(@PathVariable("id") int idClient,@RequestBody Client client){
+    public ResponseEntity<Account> updateAccount(@RequestBody Account account){
 		
-        if (clientService.updateClient(idClient, client) != null){
-            return new ResponseEntity<>(client, HttpStatus.OK);
+        if (accountService.updateAccount(account) != null){
+            return new ResponseEntity<>(account, HttpStatus.OK);
         }
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);		
 	
 	}
         
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteClientById(@PathVariable("id") int idClient){
+    public ResponseEntity deleteAccountById(@PathVariable("id") int idAccount){
     	
-        if (clientService.deleteClientById(idClient)){
+        if (accountService.deleteAccountById(idAccount)){
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-            
-        
-    }
 	
-
-	
-	
-
-	
-	
-
+}
+    
 }
