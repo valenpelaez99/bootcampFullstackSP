@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.reto.retofinal.entity.Account;
-import com.reto.retofinal.entity.Client;
 import com.reto.retofinal.repository.AccountRepository;
 import com.reto.retofinal.repository.ClientRepository;
 
@@ -27,7 +26,17 @@ public class AccountServiceImplementation implements AccountService {
 			AccountGenerator accountGenerator = new AccountGenerator();
 			String accountNumber = accountGenerator.accountGenerator(account.getAccountType());
 			Account existingAccount = accountRepository.findByAccountNumber(accountNumber);
-//			Account existingClient = accountRepository.findByidClient(account.getIdclient());
+//			Client idClient = clientRepository.findById(idClient.getIdClient());
+			
+			
+//			Client idClient = clientRepository.findByIdClient(null);
+//			Client existingClient = accountRepository.findByIdClient(account.getIdclient());
+		
+
+			
+//			if (existingAccount == null && existingClient != null) {
+			
+//			clientRepository.findByIdClient(int idClient);
 			
 			
 			if (existingAccount == null) {
@@ -79,12 +88,6 @@ public class AccountServiceImplementation implements AccountService {
 	public Account findByidAccount(String accountNumber) {
 		// TODO Auto-generated method stub
 		return accountRepository.findByAccountNumber(accountNumber);
-	}
-
-	@Override
-	public Account findByidClient(Client idclient) {
-		// TODO Auto-generated method stub
-		return accountRepository.findByidClient(idclient);
 	}
 
 	
