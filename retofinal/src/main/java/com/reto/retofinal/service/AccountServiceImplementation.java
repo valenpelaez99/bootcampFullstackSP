@@ -27,6 +27,8 @@ public class AccountServiceImplementation implements AccountService {
 			AccountGenerator accountGenerator = new AccountGenerator();
 			String accountNumber = accountGenerator.accountGenerator(account.getAccountType());
 			Account existingAccount = accountRepository.findByAccountNumber(accountNumber);
+//			Account existingClient = accountRepository.findByidClient(account.getIdclient());
+			
 			
 			if (existingAccount == null) {
 				
@@ -74,9 +76,15 @@ public class AccountServiceImplementation implements AccountService {
 	}
 
 	@Override
-	public Account findByidClient(String accountNumber) {
+	public Account findByidAccount(String accountNumber) {
 		// TODO Auto-generated method stub
 		return accountRepository.findByAccountNumber(accountNumber);
+	}
+
+	@Override
+	public Account findByidClient(Client idclient) {
+		// TODO Auto-generated method stub
+		return accountRepository.findByidClient(idclient);
 	}
 
 	
