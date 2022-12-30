@@ -94,6 +94,12 @@ public class ClientServiceImplementation implements ClientService{
 		
 	}
 
+//	@Override
+//	public Client findByIdClient(Client idClient) {
+//		// TODO Auto-generated method stub
+//		return clientRepository.findByIdClient(idClient);
+//	}
+
 
 	
 

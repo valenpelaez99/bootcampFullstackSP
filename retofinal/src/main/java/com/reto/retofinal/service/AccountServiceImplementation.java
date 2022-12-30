@@ -27,8 +27,17 @@ public class AccountServiceImplementation implements AccountService {
 			AccountGenerator accountGenerator = new AccountGenerator();
 			String accountNumber = accountGenerator.accountGenerator(account.getAccountType());
 			Account existingAccount = accountRepository.findByAccountNumber(accountNumber);
-//			Account existingClient = accountRepository.findByidClient(account.getIdclient());
+//			Client idClient = clientRepository.findById(idClient.getIdClient());
 			
+			
+//			Client idClient = clientRepository.findByIdClient(null);
+//			Client existingClient = accountRepository.findByIdClient(account.getIdclient());
+		
+
+			
+//			if (existingAccount == null && existingClient != null) {
+			
+//			clientRepository.findByIdClient(int idClient);
 			
 			if (existingAccount == null) {
 				
@@ -75,16 +84,11 @@ public class AccountServiceImplementation implements AccountService {
 		return true;
 	}
 
-	@Override
-	public Account findByidAccount(String accountNumber) {
-		// TODO Auto-generated method stub
-		return accountRepository.findByAccountNumber(accountNumber);
-	}
 
 	@Override
-	public Account findByidClient(Client idclient) {
+	public Account findByAccount(String accountNumber) {
 		// TODO Auto-generated method stub
-		return accountRepository.findByidClient(idclient);
+		return accountRepository.findByAccountNumber(accountNumber);
 	}
 
 	

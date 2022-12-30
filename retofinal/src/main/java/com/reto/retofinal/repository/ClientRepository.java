@@ -8,5 +8,7 @@ import com.reto.retofinal.entity.Client;
 @Repository
 
 public interface ClientRepository extends JpaRepository<Client, Integer>{
+	
+//	Client findByIdClient(Client idClient);
 
 }

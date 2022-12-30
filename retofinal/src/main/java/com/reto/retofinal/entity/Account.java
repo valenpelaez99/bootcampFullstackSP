@@ -62,7 +62,8 @@ public class Account {
 	private String userModification;
 	
 	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
+//	@ManyToOne
 	@JoinColumn(name = "idclient")
 	private Client idClient;
 
