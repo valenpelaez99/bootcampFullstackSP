@@ -43,9 +43,9 @@ public class AccountController {
     }
 	
 	@PutMapping("/{id}")
-    public ResponseEntity<Account> updateAccount(@RequestBody Account account){
+    public ResponseEntity<Account> updateAccount(@PathVariable("id") int idAccount, @RequestBody Account account){
 		
-        if (accountService.updateAccount(account) != null){
+        if (accountService.updateAccount(idAccount, account) != null){
             return new ResponseEntity<>(account, HttpStatus.OK);
         }
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);		

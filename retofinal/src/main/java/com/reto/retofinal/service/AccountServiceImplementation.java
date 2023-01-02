@@ -42,6 +42,7 @@ public class AccountServiceImplementation implements AccountService {
 				if(client != null && (existingAccount == null)){
 					account.setAccountNumber(accountNumber);
 					account.setCreationDate(LocalDate.now());
+					account.setAvailableBalance(account.getBalance());
 					account.setUserCreation("admin");
 					account.setUserModification("admin");
 
@@ -69,12 +70,6 @@ public class AccountServiceImplementation implements AccountService {
 		return accountRepository.findAll();
 	}
 
-	@Override
-	public Account updateAccount(Account account) {
-		// TODO Auto-generated method stub
-	
-		return accountRepository.save(account);
-	}
 
 	@Override
 	public boolean deleteAccountById(int idAccount) {
@@ -89,5 +84,47 @@ public class AccountServiceImplementation implements AccountService {
 		return accountRepository.findByAccountNumber(accountNumber);
 	}
 
+	@Override
+	public Account updateAccount(int idAccount, Account account) {
+		// TODO Auto-generated method stub
+				
+		Account existingAccount = accountRepository.findById(idAccount).get();
+		
+		if (account.getAccountType() != null) {
+			
+			existingAccount.setAccountType(account.getAccountType());
+		} 
+		
+		if (account.getAccountNumber() != null) {
+			
+			existingAccount.setAccountNumber(account.getAccountNumber());
+		} 
+		
+		if (account.getAccountStatus() != null) {
+			
+			existingAccount.setAccountStatus(account.getAccountStatus());
+		} 
+		
+		if (account.getBalance() != 0) {
+			
+			existingAccount.setBalance(account.getBalance());
+		} 
+		
+		if (account.getAvailableBalance() != 0) {
+			
+			existingAccount.setAvailableBalance(account.getAvailableBalance());
+		} 
+		
+		if (account.getNontaxable() != null) {
+			
+			existingAccount.setNontaxable(account.getNontaxable());
+			
+		}
+		
+		existingAccount.setModificationDate(LocalDate.now());
+			
+			return accountRepository.save(account);
+			
+		}
 	
 }

@@ -29,11 +29,19 @@ public class TransactionServiceImplementation implements TransactionService {
 				|| transaction.getTransactionType().equalsIgnoreCase("transfer")) {	
 
 			Account accountTransaction = accountRepository.findByAccountNumber(transaction.getAccountNumber());
+			FinantialMovements finantialMovements = new FinantialMovements();
+			float balance = finantialMovements.finantialMovements(transaction.getValue(), accountTransaction.getBalance(), transaction.getMovementType());
 	
-			
 			transaction.setIdAccount(accountTransaction);	
+			transaction.setBalance(balance);
+			transaction.setAvailableBalance(balance);
 			transaction.setMovementDate(LocalDate.now());
-			return transactionRepository.save(transaction);
+			accountTransaction.setBalance(balance);
+			accountTransaction.setAvailableBalance(balance);
+			
+			return transactionRepository.save(transaction);			
+			
+			
 		}
 		
 		return null;
@@ -42,7 +50,7 @@ public class TransactionServiceImplementation implements TransactionService {
 	@Override
 	public List<Transaction> getallTransaction() {
 		// TODO Auto-generated method stub
-		return null;
+		return transactionRepository.findAll();
 	}
 
 	@Override
