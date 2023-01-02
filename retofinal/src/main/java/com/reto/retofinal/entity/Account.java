@@ -1,6 +1,7 @@
 package com.reto.retofinal.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -15,6 +16,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -62,9 +64,12 @@ public class Account {
 	private String userModification;
 	
 	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "idclient")
 	private Client idClient;
+	
+	@OneToMany(mappedBy = "idAccount")
+	private List<Transaction> transaction;
 
 	public Account() {
 	}

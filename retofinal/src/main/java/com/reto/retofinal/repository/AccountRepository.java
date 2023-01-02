@@ -9,6 +9,7 @@ import com.reto.retofinal.entity.Account;
 @Repository
 
 public interface AccountRepository extends JpaRepository<Account,Integer>{
+	
 	Account findByAccountNumber(String accountNumber);
 
 }

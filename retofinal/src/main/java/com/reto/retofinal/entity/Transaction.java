@@ -2,11 +2,16 @@ package com.reto.retofinal.entity;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,8 +24,8 @@ public class Transaction {
 	@Column(name= "idtransaction")
 	private int idTransaction;
 	
-//	@Column(name= "accountNumber")
-//	private String accountNumber;
+	@Column(name= "accountnumber")
+	private String accountNumber;
 	
 	@Column(name= "movementdate")
 	private LocalDate movementDate;
@@ -42,6 +47,11 @@ public class Transaction {
 	
 	@Column(name= "availablebalance")
 	private float availableBalance;
+	
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "idaccount")
+	private Account idAccount;
 
 	public Transaction() {
 	}
@@ -52,6 +62,14 @@ public class Transaction {
 
 	public void setIdTransaction(int idTransaction) {
 		this.idTransaction = idTransaction;
+	}
+
+	public String getAccountNumber() {
+		return accountNumber;
+	}
+
+	public void setAccountNumber(String accountNumber) {
+		this.accountNumber = accountNumber;
 	}
 
 	public LocalDate getMovementDate() {
@@ -110,6 +128,13 @@ public class Transaction {
 		this.availableBalance = availableBalance;
 	}
 
+	public Account getIdAccount() {
+		return idAccount;
+	}
+
+	public void setIdAccount(Account idAccount) {
+		this.idAccount = idAccount;
+	}
 	
 	
 	

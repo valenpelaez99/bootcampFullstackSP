@@ -9,5 +9,5 @@ import com.reto.retofinal.entity.Transaction;
 
 public interface TransactionRepository extends JpaRepository<Transaction,Integer> {
 	
-	
+	Transaction findByAccountNumber(String accountNumber);
 }
