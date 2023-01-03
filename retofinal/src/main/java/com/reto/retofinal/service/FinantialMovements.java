@@ -15,16 +15,11 @@ public class FinantialMovements {
 		else if (movementType.equalsIgnoreCase("debit")) {
 			
 			Result = balance - value ;
-			
-		}
+				
+			}
+
 		
 		return Result;
-		
-	}
-
-	public float debit (float value, float balance) {
-		
-		return balance - value ;
 		
 	}
 	

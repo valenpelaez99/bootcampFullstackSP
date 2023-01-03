@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.reto.retofinal.entity.Client;
+import com.reto.retofinal.repository.AccountRepository;
 import com.reto.retofinal.repository.ClientRepository;
 
 @Service
@@ -15,6 +16,8 @@ public class ClientServiceImplementation implements ClientService{
 
 	@Autowired
 	ClientRepository clientRepository;
+	@Autowired
+	AccountRepository accountRepository;
 	
 	@Override
 	public Client createClient(Client client) {

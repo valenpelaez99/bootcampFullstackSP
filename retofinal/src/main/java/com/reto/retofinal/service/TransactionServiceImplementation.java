@@ -31,13 +31,25 @@ public class TransactionServiceImplementation implements TransactionService {
 			Account accountTransaction = accountRepository.findByAccountNumber(transaction.getAccountNumber());
 			FinantialMovements finantialMovements = new FinantialMovements();
 			float balance = finantialMovements.finantialMovements(transaction.getValue(), accountTransaction.getBalance(), transaction.getMovementType());
-	
+			
 			transaction.setIdAccount(accountTransaction);	
 			transaction.setBalance(balance);
 			transaction.setAvailableBalance(balance);
 			transaction.setMovementDate(LocalDate.now());
 			accountTransaction.setBalance(balance);
 			accountTransaction.setAvailableBalance(balance);
+			
+			if (accountTransaction.getAccountType().equalsIgnoreCase("saving") && transaction.getBalance() < 0) {
+				return null;
+			}
+			
+			if (accountTransaction.getAccountType().equalsIgnoreCase("checking") && transaction.getBalance() < -3000000) {
+				return null;
+			}
+			
+			if (accountTransaction.getAccountStatus().equalsIgnoreCase("inactive") && transaction.getMovementType().equalsIgnoreCase("debit")) {
+				return null;
+			}
 			
 			return transactionRepository.save(transaction);			
 			

@@ -25,6 +25,10 @@ public class AccountServiceImplementation implements AccountService {
 		if (account.getAccountType().equalsIgnoreCase("saving") && (account.getBalance() < 0)) {
 			return null;
 		}
+		
+		if (account.getAccountType().equalsIgnoreCase("checking") && (account.getBalance() < -3000000)) {
+			return null;
+		}
 
 		
 		if (account.getAccountType().equalsIgnoreCase("checking") || account.getAccountType().equalsIgnoreCase("saving"))  {
@@ -90,6 +94,12 @@ public class AccountServiceImplementation implements AccountService {
 				
 		Account existingAccount = accountRepository.findById(idAccount).get();
 		
+		if (account.getAccountStatus().equalsIgnoreCase("canceled") && (existingAccount.getBalance() > 1 || existingAccount.getBalance() < 0)) {
+			
+			return null;
+			
+		}
+		
 		if (account.getAccountType() != null) {
 			
 			existingAccount.setAccountType(account.getAccountType());
@@ -120,6 +130,7 @@ public class AccountServiceImplementation implements AccountService {
 			existingAccount.setNontaxable(account.getNontaxable());
 			
 		}
+		
 		
 		existingAccount.setModificationDate(LocalDate.now());
 			
