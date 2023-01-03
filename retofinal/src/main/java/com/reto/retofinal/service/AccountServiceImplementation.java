@@ -137,5 +137,11 @@ public class AccountServiceImplementation implements AccountService {
 			return accountRepository.save(account);
 			
 		}
+
+	@Override
+	public List<Account> findByidClient(Client idClient) {
+		// TODO Auto-generated method stub
+		return accountRepository.findByidClient(idClient);
+	}
 	
 }

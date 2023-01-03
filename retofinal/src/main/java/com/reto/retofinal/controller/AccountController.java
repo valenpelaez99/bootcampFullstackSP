@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.reto.retofinal.entity.Account;
+import com.reto.retofinal.entity.Client;
 import com.reto.retofinal.service.AccountService;
 
 @RestController
@@ -51,6 +52,20 @@ public class AccountController {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);		
 	
 	}
+	
+	@GetMapping("/getByidClient/{idClient}")
+    public ResponseEntity<List<Account>> getByidClient(@PathVariable("idClient") Client idClient ){
+		
+		List<Account> accountByid = accountService.findByidClient(idClient);
+		
+		if (accountByid.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		return new ResponseEntity<List<Account>>(accountService.findByidClient(idClient), HttpStatus.OK);
+		
+	}
+	
         
     @DeleteMapping("/{id}")
     public ResponseEntity deleteAccountById(@PathVariable("id") int idAccount){

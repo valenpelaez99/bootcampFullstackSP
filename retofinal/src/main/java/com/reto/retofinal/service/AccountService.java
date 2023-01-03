@@ -11,6 +11,7 @@ public interface AccountService {
 	public List<Account> getallAccounts();
 	public Account updateAccount(int id, Account account);
 	Account findByidAccount(String accountNumber);
+	List<Account> findByidClient (Client idClient);
 	public boolean deleteAccountById(int id);
 	
 }
