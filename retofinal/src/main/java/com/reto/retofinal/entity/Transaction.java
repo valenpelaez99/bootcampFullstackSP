@@ -42,6 +42,9 @@ public class Transaction {
 	@Column(name= "movementtype")
 	private String movementType;
 	
+	@Column(name= "transferaccount")
+	private String transferAccount;
+	
 	@Column(name= "balance")
 	private float balance;
 	
@@ -112,6 +115,14 @@ public class Transaction {
 		this.movementType = movementType;
 	}
 
+	public String getTransferAccount() {
+		return transferAccount;
+	}
+
+	public void setTransferAccount(String transferAccount) {
+		this.transferAccount = transferAccount;
+	}
+
 	public float getBalance() {
 		return balance;
 	}
@@ -135,6 +146,7 @@ public class Transaction {
 	public void setIdAccount(Account idAccount) {
 		this.idAccount = idAccount;
 	}
+
 	
 	
 	

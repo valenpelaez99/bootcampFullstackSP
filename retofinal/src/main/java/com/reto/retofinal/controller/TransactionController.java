@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.reto.retofinal.entity.Account;
+import com.reto.retofinal.entity.Client;
 import com.reto.retofinal.entity.Transaction;
 import com.reto.retofinal.service.TransactionService;
 
@@ -52,6 +53,7 @@ public class TransactionController {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);		
 	
 	}
+		
         
     @DeleteMapping("/{id}")
     public ResponseEntity deleteTransactionById(@PathVariable("id") int idTransaction){

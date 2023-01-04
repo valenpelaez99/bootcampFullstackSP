@@ -28,17 +28,18 @@ public class TransactionServiceImplementation implements TransactionService {
 				|| transaction.getTransactionType().equalsIgnoreCase("withdrawal") 
 				|| transaction.getTransactionType().equalsIgnoreCase("transfer")) {	
 
+			
 			Account accountTransaction = accountRepository.findByAccountNumber(transaction.getAccountNumber());
+			
+			if (accountTransaction == null) {
+				System.out.println("inexistent account");
+				return null;
+			}
+			
 			FinantialMovements finantialMovements = new FinantialMovements();
 			float balance = finantialMovements.finantialMovements(transaction.getValue(), accountTransaction.getBalance(), transaction.getMovementType());
 			
-			transaction.setIdAccount(accountTransaction);	
-			transaction.setBalance(balance);
-			transaction.setAvailableBalance(balance);
-			transaction.setMovementDate(LocalDate.now());
-			accountTransaction.setBalance(balance);
-			accountTransaction.setAvailableBalance(balance);
-			
+
 			if (accountTransaction.getAccountType().equalsIgnoreCase("saving") && transaction.getBalance() < 0) {
 				return null;
 			}
@@ -47,8 +48,38 @@ public class TransactionServiceImplementation implements TransactionService {
 				return null;
 			}
 			
+			if (accountTransaction.getAccountStatus() == null) {
+				System.out.println("Cant find account status");
+				return null;
+			}
+			
 			if (accountTransaction.getAccountStatus().equalsIgnoreCase("inactive") && transaction.getMovementType().equalsIgnoreCase("debit")) {
 				return null;
+			}
+			
+			
+			transaction.setIdAccount(accountTransaction);	
+			transaction.setBalance(balance);
+			transaction.setAvailableBalance(balance);
+			transaction.setMovementDate(LocalDate.now());
+			accountTransaction.setBalance(balance);
+			accountTransaction.setAvailableBalance(balance);
+						
+			if (transaction.getTransactionType().equalsIgnoreCase("transfer")){
+				
+				Account transferAccount = accountRepository.findByAccountNumber(transaction.getTransferAccount());
+				
+				if (transferAccount == null) {
+					System.out.println("inexistent transfer account");
+					return null;
+				}
+				
+				float transferbalance = finantialMovements.finantialMovements(transaction.getValue(), transferAccount.getBalance(), "credit");
+				
+				
+				transferAccount.setBalance(transferbalance);
+				transferAccount.setAvailableBalance(transferbalance);				
+				
 			}
 			
 			return transactionRepository.save(transaction);			

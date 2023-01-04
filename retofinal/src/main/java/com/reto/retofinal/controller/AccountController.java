@@ -58,6 +58,7 @@ public class AccountController {
 		
 		List<Account> accountByid = accountService.findByidClient(idClient);
 		
+		
 		if (accountByid.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}

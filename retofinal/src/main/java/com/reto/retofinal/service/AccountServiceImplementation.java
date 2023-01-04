@@ -60,7 +60,7 @@ public class AccountServiceImplementation implements AccountService {
 
 				}
 			} catch (Exception e) {
-				System.out.println("No hay Cliente asociado");
+				System.out.println("No client asociated");
 			}
 
 		}
@@ -134,7 +134,7 @@ public class AccountServiceImplementation implements AccountService {
 		
 		existingAccount.setModificationDate(LocalDate.now());
 			
-			return accountRepository.save(account);
+			return accountRepository.save(existingAccount);
 			
 		}
 
