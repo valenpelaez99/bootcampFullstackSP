@@ -53,8 +53,21 @@ public class TransactionController {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);		
 	
 	}
+	
+	@GetMapping("/getByidAccount/{idAccount}")
+    public ResponseEntity<List<Transaction>> getByidAccount(@PathVariable("idAccount") Account idAccount ){
 		
-        
+		List<Transaction> transactionByid = transactionService.findByidAccount(idAccount);
+		
+		if (transactionByid.isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		return new ResponseEntity<List<Transaction>>(transactionService.findByidAccount(idAccount), HttpStatus.OK);
+		
+	}
+	
+	
     @DeleteMapping("/{id}")
     public ResponseEntity deleteTransactionById(@PathVariable("id") int idTransaction){
     	

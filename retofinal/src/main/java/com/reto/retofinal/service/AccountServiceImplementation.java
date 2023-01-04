@@ -83,7 +83,7 @@ public class AccountServiceImplementation implements AccountService {
 	}
 
 	@Override
-	public Account findByidAccount(String accountNumber) {
+	public Account findByAccountNumber(String accountNumber) {
 		// TODO Auto-generated method stub
 		return accountRepository.findByAccountNumber(accountNumber);
 	}

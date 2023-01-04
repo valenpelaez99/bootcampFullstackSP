@@ -114,5 +114,11 @@ public class TransactionServiceImplementation implements TransactionService {
 		return transactionRepository.findByAccountNumber(accountNumber);
 	}
 
+	@Override
+	public List<Transaction> findByidAccount(Account idAccount) {
+		// TODO Auto-generated method stub
+		return transactionRepository.findByidAccount(idAccount);
+	}
+
 
 }

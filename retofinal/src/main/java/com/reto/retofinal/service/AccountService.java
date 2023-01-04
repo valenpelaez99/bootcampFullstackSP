@@ -10,7 +10,7 @@ public interface AccountService {
 	public Account createAccount(Account account);
 	public List<Account> getallAccounts();
 	public Account updateAccount(int id, Account account);
-	Account findByidAccount(String accountNumber);
+	Account findByAccountNumber(String accountNumber);
 	List<Account> findByidClient (Client idClient);
 	public boolean deleteAccountById(int id);
 	
