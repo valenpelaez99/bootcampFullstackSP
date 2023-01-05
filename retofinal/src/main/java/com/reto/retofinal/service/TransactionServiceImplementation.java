@@ -55,8 +55,7 @@ public class TransactionServiceImplementation implements TransactionService {
 			
 			if (accountTransaction.getAccountStatus().equalsIgnoreCase("inactive") && transaction.getMovementType().equalsIgnoreCase("debit")) {
 				return null;
-			}
-			
+			}	
 			
 			transaction.setIdAccount(accountTransaction);	
 			transaction.setBalance(balance);
@@ -76,10 +75,20 @@ public class TransactionServiceImplementation implements TransactionService {
 				
 				float transferbalance = finantialMovements.finantialMovements(transaction.getValue(), transferAccount.getBalance(), "credit");
 				
-				
+		
 				transferAccount.setBalance(transferbalance);
 				transferAccount.setAvailableBalance(transferbalance);				
 				
+				if (transferAccount.getAccountType().equalsIgnoreCase("checking") && transferbalance < 0) {
+					transferAccount.setAvailableBalance(3000000+transferbalance);
+		
+				}
+				
+			}
+			
+			if (accountTransaction.getAccountType().equalsIgnoreCase("checking") && transaction.getBalance() < 0) {
+				transaction.setAvailableBalance(3000000+balance);
+				accountTransaction.setAvailableBalance(3000000+balance);
 			}
 			
 			return transactionRepository.save(transaction);			
