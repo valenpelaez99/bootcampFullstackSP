@@ -68,6 +68,7 @@ public class Account {
 	@JoinColumn(name = "idclient")
 	private Client idClient;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "idAccount")
 	private List<Transaction> transaction;
 

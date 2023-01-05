@@ -1,14 +1,23 @@
 package com.reto.retofinal.service;
 
+import java.io.Console;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.security.auth.login.AccountNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.reto.retofinal.entity.Account;
 import com.reto.retofinal.entity.Client;
 import com.reto.retofinal.repository.AccountRepository;
 import com.reto.retofinal.repository.ClientRepository;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 
@@ -91,8 +100,21 @@ public class ClientServiceImplementation implements ClientService{
 	@Override
 	public boolean deleteClientById(int idClient) {
 		// TODO Auto-generated method stub
+			
+		Client client = clientRepository.findById(idClient).orElseThrow(() -> new EntityNotFoundException("Client not found"));
 		
-		clientRepository.deleteById(idClient);
+		List <Account> allAccountsById =  accountRepository.findAllByidClient(client);
+		
+		List <Account> cancelledAccount = allAccountsById.stream().filter((p) -> p.getAccountStatus().equalsIgnoreCase("cancelled")).collect(Collectors.toList());
+		
+		if (allAccountsById.size() != cancelledAccount.size()) {
+			System.out.println("not all accounts are cancelled");
+			return false;
+		}
+		
+		client.setDeleteid(true);
+		
+		clientRepository.save(client);
 		return true;
 		
 	}

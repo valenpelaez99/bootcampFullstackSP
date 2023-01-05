@@ -94,8 +94,8 @@ public class AccountServiceImplementation implements AccountService {
 				
 		Account existingAccount = accountRepository.findById(idAccount).get();
 		
-		if (account.getAccountStatus().equalsIgnoreCase("canceled") && (existingAccount.getBalance() > 1 || existingAccount.getBalance() < 0)) {
-			
+		if (account.getAccountStatus().equalsIgnoreCase("cancelled") && (existingAccount.getBalance() > 1 || existingAccount.getBalance() < 0)) {
+			System.out.println("the account has a balance of " + existingAccount.getBalance()); 
 			return null;
 			
 		}
