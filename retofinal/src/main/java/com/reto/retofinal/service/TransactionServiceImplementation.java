@@ -77,14 +77,13 @@ public class TransactionServiceImplementation implements TransactionService {
 
 				float transferbalance = finantialMovements.finantialMovements(transaction.getValue(), transferAccount.getBalance(), "credit");
 
-
-				transferAccount.setBalance(transferbalance);
-				transferAccount.setAvailableBalance(transferbalance);
-
 				if (transferAccount.getAccountType().equalsIgnoreCase("checking") && transferbalance < 0) {
 					transferAccount.setAvailableBalance(3000000+transferbalance);
 
 				}
+
+				transferAccount.setBalance(transferbalance);
+				transferAccount.setAvailableBalance(transferbalance);
 
 				Transaction transferTransaction = new Transaction();
 				transferTransaction.setAccountNumber(transferAccount.getAccountNumber());
@@ -96,6 +95,7 @@ public class TransactionServiceImplementation implements TransactionService {
 				transferTransaction.setMovementType(transaction.getMovementType().equalsIgnoreCase("credit")? "debit": "credit");
 				transferTransaction.setBalance(transferAccount.getBalance());
 				transferTransaction.setAvailableBalance(transferAccount.getAvailableBalance());
+				transferTransaction.setTransferAccount(accountTransaction.getAccountNumber());
 
 				if (transferAccount == null) {
 					System.out.println("inexistent transfer account");
