@@ -67,6 +67,13 @@ public class TransactionServiceImplementation implements TransactionService {
 			if (transaction.getTransactionType().equalsIgnoreCase("transfer")){
 				
 				Account transferAccount = accountRepository.findByAccountNumber(transaction.getTransferAccount());
+
+				Transaction transferTransaction = new Transaction();
+				transferTransaction.setAccountNumber(transferAccount.getAccountNumber());
+				transferTransaction.setTransactionType(transaction.getTransactionType());
+				transferTransaction.setDescription(transaction.getDescription());
+				transferTransaction.setValue(transaction.getValue());
+				transferTransaction.setMovementType(transaction.getMovementType().equalsIgnoreCase("credit")? "debit": "credit");
 				
 				if (transferAccount == null) {
 					System.out.println("inexistent transfer account");
@@ -83,6 +90,8 @@ public class TransactionServiceImplementation implements TransactionService {
 					transferAccount.setAvailableBalance(3000000+transferbalance);
 		
 				}
+
+				transactionRepository.save(transferTransaction);
 				
 				
 			}
