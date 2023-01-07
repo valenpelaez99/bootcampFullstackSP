@@ -84,6 +84,7 @@ public class TransactionServiceImplementation implements TransactionService {
 		
 				}
 				
+				
 			}
 			
 			if (accountTransaction.getAccountType().equalsIgnoreCase("checking") && transaction.getBalance() < 0) {
@@ -126,6 +127,7 @@ public class TransactionServiceImplementation implements TransactionService {
 	@Override
 	public List<Transaction> findByidAccount(Account idAccount) {
 		// TODO Auto-generated method stub
+		
 		return transactionRepository.findByidAccount(idAccount);
 	}
 
