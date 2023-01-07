@@ -63,49 +63,52 @@ public class TransactionServiceImplementation implements TransactionService {
 			transaction.setMovementDate(LocalDate.now());
 			accountTransaction.setBalance(balance);
 			accountTransaction.setAvailableBalance(balance);
-						
-			if (transaction.getTransactionType().equalsIgnoreCase("transfer")){
-				
-				Account transferAccount = accountRepository.findByAccountNumber(transaction.getTransferAccount());
-
-				Transaction transferTransaction = new Transaction();
-				transferTransaction.setAccountNumber(transferAccount.getAccountNumber());
-				transferTransaction.setTransactionType(transaction.getTransactionType());
-				transferTransaction.setDescription(transaction.getDescription());
-				transferTransaction.setValue(transaction.getValue());
-				transferTransaction.setMovementType(transaction.getMovementType().equalsIgnoreCase("credit")? "debit": "credit");
-				
-				if (transferAccount == null) {
-					System.out.println("inexistent transfer account");
-					return null;
-				}
-				
-				float transferbalance = finantialMovements.finantialMovements(transaction.getValue(), transferAccount.getBalance(), "credit");
-				
-		
-				transferAccount.setBalance(transferbalance);
-				transferAccount.setAvailableBalance(transferbalance);				
-				
-				if (transferAccount.getAccountType().equalsIgnoreCase("checking") && transferbalance < 0) {
-					transferAccount.setAvailableBalance(3000000+transferbalance);
-		
-				}
-
-				transactionRepository.save(transferTransaction);
-				
-			}
 			
 			if (accountTransaction.getAccountType().equalsIgnoreCase("checking") && transaction.getBalance() < 0) {
 				transaction.setAvailableBalance(3000000+balance);
 				accountTransaction.setAvailableBalance(3000000+balance);
 			}
 			
-			return transactionRepository.save(transaction);			
-			
+			transactionRepository.save(transaction);
+
+			if (transaction.getTransactionType().equalsIgnoreCase("transfer")){
+
+				Account transferAccount = accountRepository.findByAccountNumber(transaction.getTransferAccount());
+
+				float transferbalance = finantialMovements.finantialMovements(transaction.getValue(), transferAccount.getBalance(), "credit");
+
+
+				transferAccount.setBalance(transferbalance);
+				transferAccount.setAvailableBalance(transferbalance);
+
+				if (transferAccount.getAccountType().equalsIgnoreCase("checking") && transferbalance < 0) {
+					transferAccount.setAvailableBalance(3000000+transferbalance);
+
+				}
+
+				Transaction transferTransaction = new Transaction();
+				transferTransaction.setAccountNumber(transferAccount.getAccountNumber());
+				transferTransaction.setIdAccount(transferAccount);
+				transferTransaction.setMovementDate(transaction.getMovementDate());
+				transferTransaction.setTransactionType(transaction.getTransactionType());
+				transferTransaction.setDescription(transaction.getDescription());
+				transferTransaction.setValue(transaction.getValue());
+				transferTransaction.setMovementType(transaction.getMovementType().equalsIgnoreCase("credit")? "debit": "credit");
+				transferTransaction.setBalance(transferAccount.getBalance());
+				transferTransaction.setAvailableBalance(transferAccount.getAvailableBalance());
+
+				if (transferAccount == null) {
+					System.out.println("inexistent transfer account");
+					return null;
+				}
+
+				transactionRepository.save(transferTransaction);
+
+			}
 			
 		}
 		
-		return null;
+		return transaction;
 	}
 
 	@Override
