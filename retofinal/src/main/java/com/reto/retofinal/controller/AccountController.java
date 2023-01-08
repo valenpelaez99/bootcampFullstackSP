@@ -31,16 +31,27 @@ public class AccountController {
 		return new ResponseEntity<>(accountService.getallAccounts(), HttpStatus.OK);
 	}
 	
-	@PostMapping
-    public ResponseEntity<Account> createAccount(@RequestBody Account account){
-		
-        if (accountService.createAccount(account) != null){
+//	@PostMapping
+//  public ResponseEntity<Account> createAccount(@RequestBody Account account){
+//		
+//      if (accountService.createAccount(account) != null){
+//          return new ResponseEntity<>(account, HttpStatus.CREATED);
+//      }
+//          return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+//      
+//      
+//  
+//  }
+	
+    @PostMapping("/{clientId}")
+    public ResponseEntity<Account> createAccount(@PathVariable int clientId, @RequestBody Account account){
+
+        if (accountService.createAccount(clientId, account) != null){
             return new ResponseEntity<>(account, HttpStatus.CREATED);
-        }
+        } else {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
-        
-        
-    
+        }
+
     }
 	
 	@PutMapping("/{id}")

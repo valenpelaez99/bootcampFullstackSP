@@ -20,8 +20,10 @@ public class AccountServiceImplementation implements AccountService {
 	ClientRepository clientRepository;
 	
 	@Override
-	public Account createAccount(Account account) {
+//	public Account createAccount(Account account) {
 		
+	public Account createAccount(int clientId, Account account) {
+	
 		if (account.getAccountType().equalsIgnoreCase("saving") && (account.getBalance() < 0)) {
 			return null;
 		}
@@ -41,14 +43,14 @@ public class AccountServiceImplementation implements AccountService {
 			
 			try {
 
-				Client client = clientRepository.getReferenceById(account.getIdclient().getIdClient());
+				Client client = clientRepository.findById(clientId).get();
 
 				if(client != null && (existingAccount == null)){
 					account.setAccountNumber(accountNumber);
 					account.setCreationDate(LocalDate.now());
 					account.setAvailableBalance(account.getBalance());
 					account.setUserCreation("admin");
-					account.setUserModification("admin");
+					account.setIdClient(client);
 
 
 					if (account.getAccountType().equalsIgnoreCase("saving")) {

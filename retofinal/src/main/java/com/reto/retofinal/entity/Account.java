@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -28,7 +29,7 @@ public class Account {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name= "idaccount")
 	private int idAccount;
-	
+		
 	@Column(name= "accounttype")
 	private String accountType;
 	
@@ -63,12 +64,12 @@ public class Account {
 	@Column(name= "usermodification")
 	private String userModification;
 	
+	
 	@JsonIgnore
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idclient")
 	private Client idClient;
 	
-	@JsonIgnore
 	@OneToMany(mappedBy = "idAccount")
 	private List<Transaction> transaction;
 
@@ -162,14 +163,26 @@ public class Account {
 	public void setUserModification(String userModification) {
 		this.userModification = userModification;
 	}
+	
+	
 
-	public Client getIdclient() {
+	public Client getIdClient() {
 		return idClient;
 	}
 
-	public void setIdclient(Client idclient) {
-		this.idClient = idclient;
+	public void setIdClient(Client idClient) {
+		this.idClient = idClient;
 	}
+
+	public List<Transaction> getTransaction() {
+		return transaction;
+	}
+
+	public void setTransaction(List<Transaction> transaction) {
+		this.transaction = transaction;
+	}
+
+	
 
 	
 

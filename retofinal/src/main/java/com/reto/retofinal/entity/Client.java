@@ -63,8 +63,8 @@ public class Client {
 	
 	@Column(name= "deleteid")
 	private boolean deleteid;
+
 	
-	@JsonIgnore
 	@OneToMany(mappedBy = "idClient")
 	private List<Account> account;
 	
