@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,7 +33,7 @@ public class TransactionController {
 		return new ResponseEntity<>(transactionService.getallTransaction(), HttpStatus.OK);
 	}
 	
-	@PostMapping
+	@PostMapping("/create")
     public ResponseEntity<Transaction> createTransaction(@RequestBody Transaction transaction){
 		
         if (transactionService.createTransaction(transaction) != null){
@@ -44,7 +45,7 @@ public class TransactionController {
     
     }
 	
-	@PutMapping("/{id}")
+	@PutMapping("update/{id}")
     public ResponseEntity<Transaction> updateTransaction(@RequestBody Transaction transaction){
 		
         if (transactionService.updateTransaction(transaction) != null){
@@ -54,7 +55,7 @@ public class TransactionController {
 	
 	}
 	
-	@GetMapping("/getByidAccount/{idAccount}")
+	@GetMapping("/getByAccountId/{idAccount}")
     public ResponseEntity<List<Transaction>> getByidAccount(@PathVariable("idAccount") Account idAccount ){
 		
 		List<Transaction> transactionByid = transactionService.findByidAccount(idAccount);

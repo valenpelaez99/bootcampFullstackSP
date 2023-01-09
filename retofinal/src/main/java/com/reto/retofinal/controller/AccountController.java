@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,19 +32,8 @@ public class AccountController {
 		return new ResponseEntity<>(accountService.getallAccounts(), HttpStatus.OK);
 	}
 	
-//	@PostMapping
-//  public ResponseEntity<Account> createAccount(@RequestBody Account account){
-//		
-//      if (accountService.createAccount(account) != null){
-//          return new ResponseEntity<>(account, HttpStatus.CREATED);
-//      }
-//          return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
-//      
-//      
-//  
-//  }
 	
-    @PostMapping("/{clientId}")
+    @PostMapping("create/{clientId}")
     public ResponseEntity<Account> createAccount(@PathVariable int clientId, @RequestBody Account account){
 
         if (accountService.createAccount(clientId, account) != null){
@@ -54,7 +44,7 @@ public class AccountController {
 
     }
 	
-	@PutMapping("/{id}")
+	@PutMapping("update/{id}")
     public ResponseEntity<Account> updateAccount(@PathVariable("id") int idAccount, @RequestBody Account account){
 		
         if (accountService.updateAccount(idAccount, account) != null){
@@ -64,7 +54,7 @@ public class AccountController {
 	
 	}
 	
-	@GetMapping("/getByidClient/{idClient}")
+	@GetMapping("/getByClientId/{idClient}")
     public ResponseEntity<List<Account>> getByidClient(@PathVariable("idClient") Client idClient ){
 		
 		List<Account> accountByid = accountService.findByidClient(idClient);
@@ -79,7 +69,7 @@ public class AccountController {
 	}
 	
         
-    @DeleteMapping("/{id}")
+    @DeleteMapping("delete/{id}")
     public ResponseEntity deleteAccountById(@PathVariable("id") int idAccount){
     	
         if (accountService.deleteAccountById(idAccount)){

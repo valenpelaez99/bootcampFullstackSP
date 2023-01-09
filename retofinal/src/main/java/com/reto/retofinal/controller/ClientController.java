@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +19,6 @@ import com.reto.retofinal.service.ClientService;
 
 @RestController
 @RequestMapping("/clients")
-
 public class ClientController {
 	
 	@Autowired
@@ -29,7 +29,7 @@ public class ClientController {
 		return new ResponseEntity<>(clientService.getallClients(), HttpStatus.OK);
 	}
 	
-	@PostMapping
+	@PostMapping("/create")
     public ResponseEntity<Client> createClient(@RequestBody Client client){
 		
         if (clientService.createClient(client) != null){
@@ -41,7 +41,7 @@ public class ClientController {
     
     }
 	
-	@PutMapping("/{id}")
+	@PutMapping("update/{id}")
     public ResponseEntity<Client> updateClient(@PathVariable("id") int idClient,@RequestBody Client client){
 		
         if (clientService.updateClient(idClient, client) != null){
@@ -51,7 +51,7 @@ public class ClientController {
 	
 	}
         
-    @DeleteMapping("/{idClient}")
+    @DeleteMapping("delete/{idClient}")
     public ResponseEntity deleteClientById(@PathVariable("idClient") int idClient){
     	
         if (clientService.deleteClientById(idClient)){
