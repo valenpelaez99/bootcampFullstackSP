@@ -40,21 +40,15 @@ public class Client {
 	@Column(name= "email")
 	private String email;
 	
-	@JsonFormat(pattern = "dd/MM/yyyy") 
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Column(name= "birthdate")
 	private LocalDate birthDate;
 	
-	@JsonFormat(pattern = "dd/MM/yyyy") 
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Column(name= "creationdate")
 	private LocalDate creationDate;
 	
 	@Column(name= "usercreation")
 	private String userCreation;
-	
-	@JsonFormat(pattern = "dd/MM/yyyy") 
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
+
 	@Column(name= "modificationdate")
 	private LocalDate modificationDate;
 	
